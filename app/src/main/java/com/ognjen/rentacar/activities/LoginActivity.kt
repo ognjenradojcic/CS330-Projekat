@@ -6,21 +6,24 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.ognjen.rentacar.AppViewModel
+import com.ognjen.rentacar.layout.Footer
+import com.ognjen.rentacar.layout.Header
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -28,15 +31,14 @@ import com.ognjen.rentacar.AppViewModel
 fun LoginActivity(viewModel: AppViewModel) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var showError by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text("MetShop") })
+            Header()
         },
         bottomBar = {
-            BottomAppBar {
-                Text(text = "Bottom Bar")
-            }
+            Footer()
         },
         content = { contentPadding ->
             Column(
@@ -52,16 +54,21 @@ fun LoginActivity(viewModel: AppViewModel) {
                     value = username,
                     onValueChange = { username = it },
                     label = { Text("Username") },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
                 )
                 TextField(
                     value = password,
                     onValueChange = { password = it },
                     label = { Text("Password") },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
                 )
                 Button(onClick = {
-                    login(viewModel)
+                    if (loginFormCheck(username, password)) {
+                        viewModel.login()
+                    } else {
+                        showError = true
+                    }
+
                 }) {
                     Text(text = "Login")
                 }
@@ -69,16 +76,20 @@ fun LoginActivity(viewModel: AppViewModel) {
                     Text(text = "Nemate profil?")
                     Text(
                         text = "Registracija",
-                        modifier = Modifier.clickable { viewModel.navigateToRegister() })
+                        modifier = Modifier.clickable { viewModel.navigateToRegister() },
+                        textDecoration = TextDecoration.Underline,
+                        color = Color.Blue
+                    )
+                }
+
+                if (showError) {
+                    Text(text = "Netacni podaci za logovanje", color = MaterialTheme.colorScheme.error)
                 }
             }
         },
     )
 }
 
-fun login(viewModel: AppViewModel) {
-    // TODO: Implement login check
-
-    viewModel.login()
-
+fun loginFormCheck(username: String, password: String): Boolean {
+    return username == "ogi" && password == "ogi"
 }

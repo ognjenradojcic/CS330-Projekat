@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.ognjen.rentacar.ui.theme.RentACarTheme
+import com.example.compose.RentACarTheme
 import rs.ac.metropolitan.student.navigation.NavSetup
 
 class MainActivity : ComponentActivity() {
