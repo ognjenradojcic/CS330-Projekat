@@ -53,6 +53,9 @@ class AppViewModel : ViewModel() {
         navController.navigate(NavigationRoutes.Login.route)
     }
 
+    fun navigateToLogin(){
+        navController.navigate(NavigationRoutes.Login.route)
+    }
     fun navigateToRegister(){
         navController.navigate(NavigationRoutes.Register.route)
     }

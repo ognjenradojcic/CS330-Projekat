@@ -1,6 +1,5 @@
 package rs.ac.metropolitan.student.navigation
 
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -14,20 +13,20 @@ import com.ognjen.rentacar.activities.RegisterActivity
 @Composable
 fun NavSetup(navController: NavHostController) {
     val vm: AppViewModel = viewModel()
-    val paddingValues = PaddingValues()
     vm.navController = navController
 
     NavHost(navController = navController, startDestination = NavigationRoutes.Login.route) {
         composable(route = NavigationRoutes.Login.route) {
-            LoginActivity(vm, paddingValues)
+            LoginActivity(vm)
         }
 
-        composable(route = NavigationRoutes.Register.route){
-            RegisterActivity(vm, paddingValues)
+        composable(route = NavigationRoutes.Register.route) {
+
+            RegisterActivity(vm)
         }
 
         composable(route = NavigationRoutes.Home.route) {
-            HomeActivity(vm, paddingValues)
+            HomeActivity(vm)
         }
 
     }
