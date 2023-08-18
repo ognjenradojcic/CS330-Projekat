@@ -60,6 +60,22 @@ class AppViewModel : ViewModel() {
         navController.navigate(NavigationRoutes.Register.route)
     }
 
+    fun navigateToLocation(){
+        navController.navigate(NavigationRoutes.Location.route)
+    }
+
+    fun navigateToAccount(){
+        navController.navigate(NavigationRoutes.Account.route)
+    }
+
+    fun navigateToOrders(){
+        navController.navigate(NavigationRoutes.Orders.route)
+    }
+
+    fun navigateToHome(){
+        navController.navigate(NavigationRoutes.Home.route)
+    }
+
     fun goBack() {
         navController.popBackStack()
     }

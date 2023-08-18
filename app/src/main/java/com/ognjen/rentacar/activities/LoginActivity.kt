@@ -22,7 +22,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.ognjen.rentacar.AppViewModel
-import com.ognjen.rentacar.layout.Footer
 import com.ognjen.rentacar.layout.Header
 
 
@@ -36,9 +35,6 @@ fun LoginActivity(viewModel: AppViewModel) {
     Scaffold(
         topBar = {
             Header()
-        },
-        bottomBar = {
-            Footer()
         },
         content = { contentPadding ->
             Column(

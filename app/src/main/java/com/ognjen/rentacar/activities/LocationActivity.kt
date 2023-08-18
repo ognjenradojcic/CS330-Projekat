@@ -13,14 +13,14 @@ import com.ognjen.rentacar.layout.Header
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeActivity(viewModel: AppViewModel) {
+fun LocationActivity(viewModel: AppViewModel){
     Scaffold(topBar = {
         Header()
     }, bottomBar = {
         Footer(viewModel)
     }) { contentPadding ->
         Column(modifier = Modifier.padding(contentPadding)) {
-            Text(text = "Pocetak")
+            Text(text = "Location")
         }
     }
 }

@@ -22,7 +22,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.ognjen.rentacar.AppViewModel
-import com.ognjen.rentacar.layout.Footer
 import com.ognjen.rentacar.layout.Header
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -40,9 +39,6 @@ fun RegisterActivity(viewModel: AppViewModel) {
         topBar = {
             Header()
         },
-        bottomBar = {
-            Footer()
-        }
     ) { contentPadding ->
         Column(
             modifier = Modifier.padding(

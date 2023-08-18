@@ -6,8 +6,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.ognjen.rentacar.AppViewModel
+import com.ognjen.rentacar.activities.AccountActivity
 import com.ognjen.rentacar.activities.HomeActivity
+import com.ognjen.rentacar.activities.LocationActivity
 import com.ognjen.rentacar.activities.LoginActivity
+import com.ognjen.rentacar.activities.OrdersActivity
 import com.ognjen.rentacar.activities.RegisterActivity
 
 @Composable
@@ -27,6 +30,18 @@ fun NavSetup(navController: NavHostController) {
 
         composable(route = NavigationRoutes.Home.route) {
             HomeActivity(vm)
+        }
+
+        composable(route = NavigationRoutes.Orders.route){
+            OrdersActivity(vm)
+        }
+
+        composable(route = NavigationRoutes.Account.route){
+            AccountActivity(vm)
+        }
+
+        composable(route = NavigationRoutes.Location.route){
+            LocationActivity(vm)
         }
 
     }
