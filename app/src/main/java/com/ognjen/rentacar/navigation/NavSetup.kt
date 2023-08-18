@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import com.ognjen.rentacar.AppViewModel
 import com.ognjen.rentacar.activities.AccountActivity
 import com.ognjen.rentacar.activities.HomeActivity
+import com.ognjen.rentacar.activities.InternetCheckActivity
 import com.ognjen.rentacar.activities.LocationActivity
 import com.ognjen.rentacar.activities.LoginActivity
 import com.ognjen.rentacar.activities.OrdersActivity
@@ -18,7 +19,10 @@ fun NavSetup(navController: NavHostController) {
     val vm: AppViewModel = viewModel()
     vm.navController = navController
 
-    NavHost(navController = navController, startDestination = NavigationRoutes.Login.route) {
+    NavHost(navController = navController, startDestination = NavigationRoutes.InternetCheck.route) {
+        composable(route = NavigationRoutes.InternetCheck.route){
+            InternetCheckActivity(vm)
+        }
         composable(route = NavigationRoutes.Login.route) {
             LoginActivity(vm)
         }

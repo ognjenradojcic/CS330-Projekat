@@ -1,50 +1,18 @@
 package com.ognjen.rentacar
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavHostController
+import com.ognjen.common.service.UserService
 import rs.ac.metropolitan.student.navigation.NavigationRoutes
 
 
 class AppViewModel : ViewModel() {
     lateinit var navController: NavHostController
-//    val repository = Repository()
-    var granted = mutableStateOf(false)
 
-//    private val _students = MutableLiveData<List<StudentItem>>()
-//    val students: LiveData<List<StudentItem>>
-//        get() = _students
+    var userService = UserService()
 
-    // Komunikacija sa repozitorijumom
-//    fun loadStudents() {
-//        GlobalScope.launch {
-//            repository.loadStudents()
-//            MainScope().launch {
-//                repository.studentsFlow.collect {
-//                    _students.value = it
-//                }
-//            }
-//        }
-//    }
-
-//    fun getStudent(id: String): StudentItem? {
-//        return _students.value?.find { it.id == id }
-//    }
-//    fun deleteStudent(id: String) {
-//        GlobalScope.launch {
-//            repository.deleteStudent(id)
-//        }
-//        goBack()
-//    }
-//
-//    fun submitStudent(student: StudentItem) {
-//        GlobalScope.launch {
-//            repository.submitStudent(student)
-//        }
-//    }
 
     // Routing methods
-
     fun login(){
         navController.navigate(NavigationRoutes.Home.route)
     }
@@ -66,6 +34,7 @@ class AppViewModel : ViewModel() {
 
     fun navigateToAccount(){
         navController.navigate(NavigationRoutes.Account.route)
+        userService.getById()
     }
 
     fun navigateToOrders(){

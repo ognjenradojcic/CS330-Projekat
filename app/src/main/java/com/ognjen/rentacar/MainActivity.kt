@@ -20,6 +20,5 @@ class MainActivity : ComponentActivity() {
                 NavSetup(navController = navController)
             }
         }
-
     }
 }

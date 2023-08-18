@@ -9,7 +9,7 @@ import com.ognjen.data.dto.response.UserResponse
 import retrofit2.http.Body
 import retrofit2.http.POST
 
-interface AuthService {
+interface AuthApiService {
 
     @POST(Constants.LOGIN_URL)
     suspend fun login(@Body loginRequest: LoginRequest): LoginResponse

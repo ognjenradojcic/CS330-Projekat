@@ -1,9 +1,15 @@
 package com.ognjen.rentacar.activities
 
+import android.Manifest
+import androidx.activity.compose.ManagedActivityResultLauncher
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
@@ -17,6 +23,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextDecoration
@@ -25,9 +32,12 @@ import com.ognjen.rentacar.AppViewModel
 import com.ognjen.rentacar.layout.Header
 
 
+
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginActivity(viewModel: AppViewModel) {
+
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var showError by remember { mutableStateOf(false) }
@@ -79,7 +89,10 @@ fun LoginActivity(viewModel: AppViewModel) {
                 }
 
                 if (showError) {
-                    Text(text = "Netacni podaci za logovanje", color = MaterialTheme.colorScheme.error)
+                    Text(
+                        text = "Netacni podaci za logovanje",
+                        color = MaterialTheme.colorScheme.error
+                    )
                 }
             }
         },
@@ -89,3 +102,4 @@ fun LoginActivity(viewModel: AppViewModel) {
 fun loginFormCheck(username: String, password: String): Boolean {
     return username == "ogi" && password == "ogi"
 }
+

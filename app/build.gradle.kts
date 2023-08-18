@@ -55,7 +55,10 @@ dependencies {
     implementation ("androidx.navigation:navigation-compose:2.6.0")
     implementation("com.google.android.gms:play-services-maps:18.1.0")
     implementation("com.google.maps.android:maps-compose:2.13.0")
-
+    implementation(project(mapOf("path" to ":app:data")))
+    implementation(project(mapOf("path" to ":app:repository")))
+    implementation(project(mapOf("path" to ":app:common")))
+    compileOnly("org.projectlombok:lombok:1.18.28")
 
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")

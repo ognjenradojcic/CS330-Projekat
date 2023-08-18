@@ -7,6 +7,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.ognjen.common.domain.User
+import com.ognjen.common.service.UserService
 import com.ognjen.rentacar.AppViewModel
 import com.ognjen.rentacar.layout.Footer
 import com.ognjen.rentacar.layout.Header
@@ -14,13 +16,18 @@ import com.ognjen.rentacar.layout.Header
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AccountActivity(viewModel: AppViewModel){
+
+    val userService = UserService()
+    userService.getById()
+    val user : User = userService.user
+
     Scaffold(topBar = {
         Header()
     }, bottomBar = {
         Footer(viewModel)
     }) { contentPadding ->
         Column(modifier = Modifier.padding(contentPadding)) {
-            Text(text = "Account")
+            Text(text ="HELLO ${user.firstName}")
         }
     }
 }

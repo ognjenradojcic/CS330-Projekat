@@ -1,4 +1,4 @@
-package com.ognjen.common
+package com.ognjen.common.domain
 
 data class User(
     val id: Int,
