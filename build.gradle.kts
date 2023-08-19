@@ -4,10 +4,14 @@ plugins {
     id("org.jetbrains.kotlin.android") version "1.8.10" apply false
     id("org.jetbrains.kotlin.jvm") version "1.8.10" apply false
 
+    id ("org.jetbrains.kotlin.kapt") version "1.5.21"
+
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin") version "2.0.1" apply false
 
     id ("org.jetbrains.kotlin.plugin.lombok") version "1.8.10"
     id ("io.freefair.lombok") version "8.1.0"
 
+
     id("com.google.devtools.ksp") version "1.8.10-1.0.9" apply false
 }
+

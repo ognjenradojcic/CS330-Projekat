@@ -31,11 +31,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -48,6 +48,7 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
 }
 
 dependencies {
@@ -55,10 +56,16 @@ dependencies {
     implementation ("androidx.navigation:navigation-compose:2.6.0")
     implementation("com.google.android.gms:play-services-maps:18.1.0")
     implementation("com.google.maps.android:maps-compose:2.13.0")
-    implementation(project(mapOf("path" to ":app:data")))
-    implementation(project(mapOf("path" to ":app:repository")))
-    implementation(project(mapOf("path" to ":app:common")))
     compileOnly("org.projectlombok:lombok:1.18.28")
+
+    implementation("com.google.code.gson:gson:2.10.1")
+    //retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    //converter
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    implementation("org.mapstruct:mapstruct:1.5.5.Final")
 
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")

@@ -11,6 +11,6 @@
         <module name="RentACar.app.repository.main" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="1.7" />
+    <bytecodeTargetLevel target="17" />
   </component>
 </project>

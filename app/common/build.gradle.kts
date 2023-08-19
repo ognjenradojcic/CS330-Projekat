@@ -6,15 +6,13 @@ plugins {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_7
-    targetCompatibility = JavaVersion.VERSION_1_7
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 dependencies{
-    implementation("org.mapstruct:mapstruct:1.5.5.Final")
-    implementation(project(mapOf("path" to ":app:data")))
 
-    implementation("org.mapstruct:mapstruct:1.5.5.Final")
+    implementation(project(mapOf("path" to ":app:data")))
     implementation(project(mapOf("path" to ":app:repository")))
-    ksp("org.mapstruct:mapstruct-processor:1.5.5.Final")
+
 }
