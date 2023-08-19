@@ -18,6 +18,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
@@ -28,6 +32,7 @@ import com.ognjen.rentacar.data.dto.response.ProductResponse
 import com.ognjen.rentacar.view.AppViewModel
 import com.ognjen.rentacar.view.layout.Footer
 import com.ognjen.rentacar.view.layout.Header
+import com.ognjen.rentacar.view.layout.QuantityInputDialog
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -50,10 +55,13 @@ fun HomeActivity(viewModel: AppViewModel) {
 
             Text(
                 text = "Products",
-                Modifier.align(CenterHorizontally),
+                Modifier
+                    .align(CenterHorizontally)
+                    .padding(top = 10.dp),
                 fontSize = 30.sp,
-                fontWeight = FontWeight.Bold
-            )
+                fontWeight = FontWeight.Bold,
+
+                )
 
             ProductList(productList = products, viewModel)
         }
@@ -77,6 +85,10 @@ fun ProductList(productList: List<ProductResponse>, viewModel: AppViewModel) {
 
 @Composable
 fun ProductCard(item: ProductResponse, viewModel: AppViewModel) {
+    var isDialogVisible by remember { mutableStateOf(false) }
+    var selectedQuantity by remember { mutableStateOf(1) }
+    var inputAddress by remember { mutableStateOf("") }
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -105,7 +117,7 @@ fun ProductCard(item: ProductResponse, viewModel: AppViewModel) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .padding(16.dp)
-                    .clickable { viewModel.navigateToHome() }
+                    .clickable { isDialogVisible = true}
             ) {
                 Icon(
                     Icons.Default.ShoppingCart,
@@ -114,6 +126,20 @@ fun ProductCard(item: ProductResponse, viewModel: AppViewModel) {
                 )
                 Text(text = "Order")
             }
+        }
+        if(isDialogVisible){
+            QuantityInputDialog(
+                onConfirm = { address, quantity ->
+                    selectedQuantity = quantity
+                    inputAddress = address
+                    //todo implement ordering
+                    isDialogVisible = false
+                },
+                onDismiss = {
+                    // Dismiss the dialog
+                    isDialogVisible = false
+                }
+            )
         }
     }
 }

@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.ognjen.rentacar.view.AppViewModel
 import com.ognjen.rentacar.view.layout.Header
 
@@ -67,12 +68,13 @@ fun LoginActivity(viewModel: AppViewModel) {
                     }
 
                 }) {
-                    Text(text = "Login")
+                    Text(text = "Login", fontSize = 20.sp)
                 }
                 Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Text(text = "Nemate profil?")
+                    Text(text = "No account?", fontSize = 18.sp)
                     Text(
-                        text = "Registracija",
+                        text = "Register",
+                        fontSize = 18.sp,
                         modifier = Modifier.clickable { viewModel.navigateToRegister() },
                         textDecoration = TextDecoration.Underline,
                         color = Color.Blue
@@ -81,7 +83,7 @@ fun LoginActivity(viewModel: AppViewModel) {
 
                 if (showError) {
                     Text(
-                        text = "Netacni podaci za logovanje",
+                        text = "Incorrect credentials",
                         color = MaterialTheme.colorScheme.error
                     )
                 }

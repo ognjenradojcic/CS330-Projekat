@@ -91,7 +91,7 @@ fun RegisterActivity(viewModel: AppViewModel) {
                 Text(text = "Register")
             }
             Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                Text(text = "Vec imate profil?")
+                Text(text = "Already have account?")
                 Text(
                     text = "Login",
                     modifier = Modifier.clickable { viewModel.navigateToLogin() },
@@ -100,7 +100,7 @@ fun RegisterActivity(viewModel: AppViewModel) {
                 )
             }
             if (showError) {
-                Text(text = "Netacni podaci za logovanje", color = MaterialTheme.colorScheme.error)
+                Text(text = "Incorrect credentials", color = MaterialTheme.colorScheme.error)
             }
         }
     }

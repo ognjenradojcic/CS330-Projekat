@@ -11,13 +11,18 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -26,9 +31,9 @@ import androidx.compose.ui.unit.sp
 import com.ognjen.rentacar.data.dto.response.InvoiceResponse
 import com.ognjen.rentacar.data.dto.response.ProductResponse
 import com.ognjen.rentacar.view.AppViewModel
+import com.ognjen.rentacar.view.layout.DeleteConfirmationDialog
 import com.ognjen.rentacar.view.layout.Footer
 import com.ognjen.rentacar.view.layout.Header
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -38,9 +43,10 @@ fun OrdersActivity(viewModel: AppViewModel) {
     val product = ProductResponse(1, "A54", "Samsung", 500.0, telefon);
 
     val invoiceItem = InvoiceResponse.InvoiceItemResponse(1, product, 1)
+    val invoiceItem2 = InvoiceResponse.InvoiceItemResponse(1, product, 1)
 
     val invoices = listOf(
-        InvoiceResponse(1, "Bulevar", "21.06.2023.", 1, listOf(invoiceItem)),
+        InvoiceResponse(1, "Bulevar", "21.06.2023.", 1, listOf(invoiceItem, invoiceItem2)),
         InvoiceResponse(2, "Trg", "17.08.2023.", 1, listOf(invoiceItem)),
         InvoiceResponse(3, "Pobedina", "14.01.2023.", 2, listOf(invoiceItem)),
         InvoiceResponse(4, "Park", "25.06.2023", 3, listOf(invoiceItem))
@@ -56,7 +62,9 @@ fun OrdersActivity(viewModel: AppViewModel) {
 
             Text(
                 text = "Orders",
-                Modifier.align(Alignment.CenterHorizontally),
+                Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(top = 10.dp),
                 fontSize = 30.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -83,6 +91,8 @@ fun OrdersList(ordersList: List<InvoiceResponse>, viewModel: AppViewModel) {
 
 @Composable
 fun OrderCard(item: InvoiceResponse, viewModel: AppViewModel) {
+    var isDialogVisible by remember { mutableStateOf(false) }
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -94,7 +104,7 @@ fun OrderCard(item: InvoiceResponse, viewModel: AppViewModel) {
                     .padding(16.dp)
                     .weight(1f)
             ) {
-                OrderProductList(productList = item.items, viewModel = viewModel)
+                OrderProductList(productList = item.items)
 
                 Text(
                     text = "${item.address}, ${item.orderedDate}",
@@ -107,14 +117,27 @@ fun OrderCard(item: InvoiceResponse, viewModel: AppViewModel) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .padding(16.dp)
-                    .clickable { viewModel.navigateToHome() }
+                    .clickable { isDialogVisible = true }
             ) {
                 Icon(
-                    Icons.Default.ShoppingCart,
-                    contentDescription = "Order",
-                    Modifier.size(50.dp)
+                    Icons.Default.Delete,
+                    contentDescription = "Delete",
+                    Modifier.size(50.dp),
+                    tint = MaterialTheme.colorScheme.error
                 )
-                Text(text = "Order")
+                Text(text = "Delete", fontSize = 16.sp)
+            }
+            if (isDialogVisible) {
+                DeleteConfirmationDialog(
+                    onDeleteConfirmed = {
+                        //TODO implement delete
+
+                        isDialogVisible = false
+                    },
+
+                    onDismiss = {
+                        isDialogVisible = false
+                    })
             }
         }
     }
@@ -123,7 +146,6 @@ fun OrderCard(item: InvoiceResponse, viewModel: AppViewModel) {
 @Composable
 fun OrderProductList(
     productList: List<InvoiceResponse.InvoiceItemResponse>,
-    viewModel: AppViewModel
 ) {
 
     Column(
