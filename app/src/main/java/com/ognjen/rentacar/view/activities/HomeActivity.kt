@@ -19,6 +19,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -46,6 +47,14 @@ fun HomeActivity(viewModel: AppViewModel) {
         Footer(viewModel)
     }) { contentPadding ->
         Column(modifier = Modifier.padding(contentPadding)) {
+
+            Text(
+                text = "Products",
+                Modifier.align(CenterHorizontally),
+                fontSize = 30.sp,
+                fontWeight = FontWeight.Bold
+            )
+
             ProductList(productList = products, viewModel)
         }
     }
