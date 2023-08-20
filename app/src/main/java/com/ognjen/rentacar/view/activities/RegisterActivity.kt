@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ognjen.rentacar.data.dto.request.RegisterRequest
 import com.ognjen.rentacar.view.AppViewModel
 import com.ognjen.rentacar.view.layout.Header
 
@@ -84,7 +85,15 @@ fun RegisterActivity(viewModel: AppViewModel) {
 
             Button(onClick = {
                 if (registerFormCheck(username, password, firstName, lastName, phone)) {
-                    viewModel.register()
+                    viewModel.register(
+                        RegisterRequest(
+                            username,
+                            password,
+                            firstName,
+                            lastName,
+                            phone
+                        )
+                    )
                 } else {
                     showError = true
                 }
@@ -114,6 +123,6 @@ fun registerFormCheck(
     lastName: String,
     phone: String
 ): Boolean {
-    return username == "ogi" && password == "ogi" && firstName == "Ognjen"
-            && lastName == "Radojcic" && phone == "123"
+    return username.isNotBlank() && password.isNotBlank() && firstName.isNotBlank()
+            && lastName.isNotBlank() && phone.isNotBlank()
 }

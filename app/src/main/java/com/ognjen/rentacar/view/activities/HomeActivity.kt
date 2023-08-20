@@ -40,16 +40,15 @@ import com.ognjen.rentacar.view.layout.QuantityInputDialog
 fun HomeActivity(viewModel: AppViewModel) {
 
 
+//    val telefon = ProductResponse.ProductCategoryResponse(1, "Telefon")
+//    val products = listOf(
+//        ProductResponse(1, "A54", "Samsung", 500.0, telefon),
+//        ProductResponse(2, "S23", "Samsung", 1200.0, telefon),
+//        ProductResponse(3, "13", "Iphone", 800.0, telefon),
+//        ProductResponse(4, "14 Pro", "Iphone", 1400.0, telefon)
+//    )
 
-    val telefon = ProductResponse.ProductCategoryResponse(1, "Telefon")
-    val products = listOf(
-        ProductResponse(1, "A54", "Samsung", 500.0, telefon),
-        ProductResponse(2, "S23", "Samsung", 1200.0, telefon),
-        ProductResponse(3, "13", "Iphone", 800.0, telefon),
-        ProductResponse(4, "14 Pro", "Iphone", 1400.0, telefon)
-    )
-
-//    val products = viewModel.products
+    val products = viewModel.products
 
     Scaffold(topBar = {
         Header()
@@ -58,19 +57,28 @@ fun HomeActivity(viewModel: AppViewModel) {
     }) { contentPadding ->
         Column(modifier = Modifier.padding(contentPadding)) {
 
-            Text(
-                text = "Products",
-                Modifier
-                    .align(CenterHorizontally)
-                    .padding(top = 10.dp),
-                fontSize = 30.sp,
-                fontWeight = FontWeight.Bold,
 
-                )
             if (products != null) {
+                Text(
+                    text = "Products",
+                    Modifier
+                        .align(CenterHorizontally)
+                        .padding(top = 10.dp),
+                    fontSize = 30.sp,
+                    fontWeight = FontWeight.Bold,
+
+                    )
                 ProductList(productList = products, viewModel)
-            } else{
-                Text(text = "Loading...")
+            } else {
+                Text(
+                    text = "Loading...",
+                    Modifier
+                        .align(CenterHorizontally)
+                        .padding(top = 10.dp),
+                    fontSize = 30.sp,
+                    fontWeight = FontWeight.Bold,
+
+                    )
                 LaunchedEffect(true) {
                     viewModel.fetchProducts()
                 }

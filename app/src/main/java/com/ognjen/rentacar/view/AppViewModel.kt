@@ -5,9 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
 import com.ognjen.rentacar.data.dto.request.LoginRequest
+import com.ognjen.rentacar.data.dto.request.RegisterRequest
+import com.ognjen.rentacar.data.dto.response.InvoiceResponse
 import com.ognjen.rentacar.data.dto.response.ProductResponse
 import com.ognjen.rentacar.data.dto.response.UserResponse
 import com.ognjen.rentacar.repository.AuthRepository
+import com.ognjen.rentacar.repository.InvoiceRepository
 import com.ognjen.rentacar.repository.ProductsRepository
 import com.ognjen.rentacar.repository.UserRepository
 import kotlinx.coroutines.MainScope
@@ -25,6 +28,9 @@ class AppViewModel : ViewModel() {
 
     val productRepository = ProductsRepository()
     var products : List<ProductResponse>? = null
+
+    val invoiceRepository = InvoiceRepository()
+    var invoices : List<InvoiceResponse>? = null
 
     val authRepository = AuthRepository()
 
@@ -48,6 +54,15 @@ class AppViewModel : ViewModel() {
         }
     }
 
+    fun fetchInvoices(){
+        viewModelScope.launch {
+            invoiceRepository.getAll()
+            MainScope().launch {
+                invoices = invoiceRepository.invoices
+            }
+        }
+    }
+
     // Routing methods
     fun login(loginRequest: LoginRequest) {
         viewModelScope.launch {
@@ -55,10 +70,13 @@ class AppViewModel : ViewModel() {
         }
 
         navController.navigate(NavigationRoutes.Home.route)
-
     }
 
-    fun register() {
+    fun register(registerRequest: RegisterRequest) {
+        viewModelScope.launch {
+            authRepository.register(registerRequest)
+        }
+
         navController.navigate(NavigationRoutes.Login.route)
     }
 

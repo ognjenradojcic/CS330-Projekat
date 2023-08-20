@@ -1,19 +1,19 @@
 package com.ognjen.rentacar.repository
 
 import com.ognjen.rentacar.data.RetrofitHelper
-import com.ognjen.rentacar.data.api.ProductApiService
-import com.ognjen.rentacar.data.dto.response.ProductResponse
+import com.ognjen.rentacar.data.api.InvoiceApiService
+import com.ognjen.rentacar.data.dto.response.InvoiceResponse
 
-class ProductsRepository {
-    var products: List<ProductResponse>? = null
+class InvoiceRepository {
+    var invoices: List<InvoiceResponse>? = null
 
-    var apiService = RetrofitHelper.getInstance().create(ProductApiService::class.java)
+    var apiService = RetrofitHelper.getInstance().create(InvoiceApiService::class.java)
 
     suspend fun getAll() {
         try {
             val response = apiService.getAll()
             if (response.isSuccessful) {
-                products = response.body()
+                invoices = response.body()
 
             } else {
                 val errorBody = response.errorBody()?.string()

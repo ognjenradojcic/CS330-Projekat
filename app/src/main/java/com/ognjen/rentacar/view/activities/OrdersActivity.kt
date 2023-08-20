@@ -19,6 +19,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -29,7 +30,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ognjen.rentacar.data.dto.response.InvoiceResponse
-import com.ognjen.rentacar.data.dto.response.ProductResponse
 import com.ognjen.rentacar.view.AppViewModel
 import com.ognjen.rentacar.view.layout.DeleteConfirmationDialog
 import com.ognjen.rentacar.view.layout.Footer
@@ -39,19 +39,21 @@ import com.ognjen.rentacar.view.layout.Header
 @Composable
 fun OrdersActivity(viewModel: AppViewModel) {
 
-    val telefon = ProductResponse.ProductCategoryResponse(1, "Telefon")
-    val product = ProductResponse(1, "A54", "Samsung", 500.0, telefon);
+//    val telefon = ProductResponse.ProductCategoryResponse(1, "Telefon")
+//    val product = ProductResponse(1, "A54", "Samsung", 500.0, telefon);
+//
+//    val invoiceItem = InvoiceResponse.InvoiceItemResponse(1, product, 1)
+//    val invoiceItem2 = InvoiceResponse.InvoiceItemResponse(1, product, 1)
+//
+//    val invoices = listOf(
+//        InvoiceResponse(1, "Bulevar", "21.06.2023.", 1, listOf(invoiceItem, invoiceItem2)),
+//        InvoiceResponse(2, "Trg", "17.08.2023.", 1, listOf(invoiceItem)),
+//        InvoiceResponse(3, "Pobedina", "14.01.2023.", 2, listOf(invoiceItem)),
+//        InvoiceResponse(4, "Park", "25.06.2023", 3, listOf(invoiceItem))
+//
+//    )
 
-    val invoiceItem = InvoiceResponse.InvoiceItemResponse(1, product, 1)
-    val invoiceItem2 = InvoiceResponse.InvoiceItemResponse(1, product, 1)
-
-    val invoices = listOf(
-        InvoiceResponse(1, "Bulevar", "21.06.2023.", 1, listOf(invoiceItem, invoiceItem2)),
-        InvoiceResponse(2, "Trg", "17.08.2023.", 1, listOf(invoiceItem)),
-        InvoiceResponse(3, "Pobedina", "14.01.2023.", 2, listOf(invoiceItem)),
-        InvoiceResponse(4, "Park", "25.06.2023", 3, listOf(invoiceItem))
-
-    )
+    val invoices = viewModel.invoices
 
     Scaffold(topBar = {
         Header()
@@ -59,18 +61,30 @@ fun OrdersActivity(viewModel: AppViewModel) {
         Footer(viewModel)
     }) { contentPadding ->
         Column(modifier = Modifier.padding(contentPadding)) {
+            if (invoices != null) {
+                Text(
+                    text = "Orders",
+                    Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .padding(top = 10.dp),
+                    fontSize = 30.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                OrdersList(ordersList = invoices, viewModel)
+            } else {
+                Text(
+                    text = "Loading...",
+                    Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .padding(top = 10.dp),
+                    fontSize = 30.sp,
+                    fontWeight = FontWeight.Bold,
 
-            Text(
-                text = "Orders",
-                Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .padding(top = 10.dp),
-                fontSize = 30.sp,
-                fontWeight = FontWeight.Bold
-            )
-
-            OrdersList(ordersList = invoices, viewModel)
-        }
+                    )
+                LaunchedEffect(true) {
+                    viewModel.fetchInvoices()
+                }
+            }        }
     }
 }
 
