@@ -10,13 +10,35 @@ import lombok.RequiredArgsConstructor
 class UserRepository {
     var userResponse: UserResponse? = null
 
-    val apiService = RetrofitHelper.getInstance().create(UserApiService::class.java)
+    var apiService = RetrofitHelper.getInstance().create(UserApiService::class.java)
 
-    val bearer =
-        "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvZ2kxMjMiLCJpYXQiOjE2OTI0OTQzMjYsImV4cCI6MTY5MjQ5NDkyNn0.HH1X1mnalwc6j07Atc5RBYW4re6u9ErjR7uhlEHGMyY"
 
     //TODO try to use mapstruct
     suspend fun getStudentById() {
-        userResponse = apiService.getProfile("Bearer $bearer")
+        try{
+            val response = apiService.getProfile()
+            if(response.isSuccessful){
+                userResponse = response.body()
+            } else{
+                val errorBody = response.errorBody()?.string()
+                when (response.code()){
+                    400 -> {
+                        println("Greska")
+                    }
+                    401 -> {
+                        println("Ne moze")
+                    }
+                    404 -> {
+                        println("Nema")
+                    }
+                    // Handle other error codes
+                    else -> {
+                        println("Neuspesno")
+                    }
+                }
+            }
+        } catch (e: Exception){
+            println(e.message)
+        }
     }
 }

@@ -18,6 +18,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -38,6 +39,8 @@ import com.ognjen.rentacar.view.layout.QuantityInputDialog
 @Composable
 fun HomeActivity(viewModel: AppViewModel) {
 
+
+
     val telefon = ProductResponse.ProductCategoryResponse(1, "Telefon")
     val products = listOf(
         ProductResponse(1, "A54", "Samsung", 500.0, telefon),
@@ -45,6 +48,8 @@ fun HomeActivity(viewModel: AppViewModel) {
         ProductResponse(3, "13", "Iphone", 800.0, telefon),
         ProductResponse(4, "14 Pro", "Iphone", 1400.0, telefon)
     )
+
+//    val products = viewModel.products
 
     Scaffold(topBar = {
         Header()
@@ -62,8 +67,14 @@ fun HomeActivity(viewModel: AppViewModel) {
                 fontWeight = FontWeight.Bold,
 
                 )
-
-            ProductList(productList = products, viewModel)
+            if (products != null) {
+                ProductList(productList = products, viewModel)
+            } else{
+                Text(text = "Loading...")
+                LaunchedEffect(true) {
+                    viewModel.fetchProducts()
+                }
+            }
         }
     }
 }
@@ -117,7 +128,7 @@ fun ProductCard(item: ProductResponse, viewModel: AppViewModel) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .padding(16.dp)
-                    .clickable { isDialogVisible = true}
+                    .clickable { isDialogVisible = true }
             ) {
                 Icon(
                     Icons.Default.ShoppingCart,
@@ -127,7 +138,7 @@ fun ProductCard(item: ProductResponse, viewModel: AppViewModel) {
                 Text(text = "Order", fontSize = 18.sp, fontWeight = FontWeight.Bold)
             }
         }
-        if(isDialogVisible){
+        if (isDialogVisible) {
             QuantityInputDialog(
                 onConfirm = { address, quantity ->
                     selectedQuantity = quantity

@@ -15,6 +15,5 @@ class Constants {
         const val CATEGORIES_URL = "categories"
 
         const val PRODUCTS_URL = "products"
-
     }
 }

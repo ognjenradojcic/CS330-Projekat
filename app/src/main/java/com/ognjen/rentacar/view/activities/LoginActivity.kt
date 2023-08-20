@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ognjen.rentacar.data.dto.request.LoginRequest
 import com.ognjen.rentacar.view.AppViewModel
 import com.ognjen.rentacar.view.layout.Header
 
@@ -62,7 +63,7 @@ fun LoginActivity(viewModel: AppViewModel) {
                 )
                 Button(onClick = {
                     if (loginFormCheck(username, password)) {
-                        viewModel.login()
+                        viewModel.login(loginRequest = LoginRequest(username, password))
                     } else {
                         showError = true
                     }
@@ -93,8 +94,6 @@ fun LoginActivity(viewModel: AppViewModel) {
 }
 
 fun loginFormCheck(username: String, password: String): Boolean {
-    return true
-//    return username == "ogi" && password == "ogi"
-    //todo implement login check
+    return username.isNotBlank() && password.isNotBlank()
 }
 
