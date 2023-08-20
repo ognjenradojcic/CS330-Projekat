@@ -34,11 +34,6 @@ fun ProfileEditDialog(
         text = {
             Column {
                 ProfileInputField(
-                    label = "Username",
-                    value = newProfile.username,
-                    onValueChange = { newUsername -> newProfile = newProfile.copy(username = newUsername) }
-                )
-                ProfileInputField(
                     label = "First name",
                     value = newProfile.firstName,
                     onValueChange = { newFirstName -> newProfile = newProfile.copy(firstName = newFirstName) }

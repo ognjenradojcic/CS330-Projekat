@@ -125,7 +125,7 @@ fun OrderCard(item: InvoiceResponse, viewModel: AppViewModel) {
                     Modifier.size(50.dp),
                     tint = MaterialTheme.colorScheme.error
                 )
-                Text(text = "Delete", fontSize = 16.sp)
+                Text(text = "Delete", fontSize = 18.sp, fontWeight = FontWeight.Bold)
             }
             if (isDialogVisible) {
                 DeleteConfirmationDialog(

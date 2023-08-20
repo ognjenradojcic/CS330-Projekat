@@ -2,7 +2,7 @@ package com.ognjen.rentacar.data
 
 class Constants {
     companion object {
-        const val BASE_URL = "localhost:8080/api/v1/"
+        const val BASE_URL = "http://192.168.0.31:8080/api/v1/"
 
         const val LOGIN_URL = "auth/login"
         const val REGISTER_URL = "auth/register"

@@ -6,8 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
 import com.ognjen.rentacar.data.dto.response.UserResponse
 import com.ognjen.rentacar.repository.UserRepository
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import rs.ac.metropolitan.student.navigation.NavigationRoutes
 
@@ -18,13 +17,14 @@ class AppViewModel : ViewModel() {
     var granted = mutableStateOf(false)
     val repository = UserRepository()
 
-    private val _user = MutableStateFlow<UserResponse?>(null)
-    val user: StateFlow<UserResponse?> = _user
+    var userResponse: UserResponse? = null
 
     fun fetchUser() {
         viewModelScope.launch {
-            val fetchedUser = repository.getStudentById()
-            _user.value = fetchedUser
+            repository.getStudentById()
+            MainScope().launch {
+                userResponse = repository.userResponse
+            }
         }
     }
 

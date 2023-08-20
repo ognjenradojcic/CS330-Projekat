@@ -124,7 +124,7 @@ fun ProductCard(item: ProductResponse, viewModel: AppViewModel) {
                     contentDescription = "Order",
                     Modifier.size(50.dp)
                 )
-                Text(text = "Order")
+                Text(text = "Order", fontSize = 18.sp, fontWeight = FontWeight.Bold)
             }
         }
         if(isDialogVisible){

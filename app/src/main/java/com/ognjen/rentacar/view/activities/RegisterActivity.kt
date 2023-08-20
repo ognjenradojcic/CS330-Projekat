@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.ognjen.rentacar.view.AppViewModel
 import com.ognjen.rentacar.view.layout.Header
 
@@ -52,32 +53,32 @@ fun RegisterActivity(viewModel: AppViewModel) {
             TextField(
                 value = username,
                 onValueChange = { username = it },
-                label = { Text("Username") },
+                label = { Text("Username", fontSize = 20.sp) },
                 modifier = Modifier.fillMaxWidth()
             )
             TextField(
                 value = password,
                 onValueChange = { password = it },
-                label = { Text("Password") },
+                label = { Text("Password", fontSize = 20.sp) },
                 modifier = Modifier.fillMaxWidth()
             )
             TextField(
                 value = firstName,
                 onValueChange = { firstName = it },
-                label = { Text("First name") },
+                label = { Text("First name", fontSize = 20.sp) },
                 modifier = Modifier.fillMaxWidth()
             )
             TextField(
                 value = lastName,
                 onValueChange = { lastName = it },
-                label = { Text("Last name") },
+                label = { Text("Last name", fontSize = 20.sp) },
                 modifier = Modifier.fillMaxWidth()
             )
 
             TextField(
                 value = phone,
                 onValueChange = { phone = it },
-                label = { Text("Phone") },
+                label = { Text("Phone", fontSize = 20.sp) },
                 modifier = Modifier.fillMaxWidth()
             )
 

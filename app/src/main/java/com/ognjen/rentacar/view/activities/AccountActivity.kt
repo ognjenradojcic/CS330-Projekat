@@ -34,7 +34,9 @@ import com.ognjen.rentacar.view.layout.ProfileEditDialog
 fun AccountActivity(viewModel: AppViewModel) {
 
 // TODO: Fetch user from api 
-    val user = UserResponse(1, "ogi123", "Ognjen", "Radojcic", "065123123")
+
+//    val user = UserResponse(1, "ogi123", "Ognjen", "Radojcic", "065123123")
+    val user = viewModel.userResponse
 
 
     if (user != null) {
@@ -45,9 +47,7 @@ fun AccountActivity(viewModel: AppViewModel) {
         }) { contentPadding ->
             Column(modifier = Modifier.padding(contentPadding)) {
                 ProfileCard(userResponse = user)
-
             }
-
         }
     } else {
         Text(text = "Loading...")

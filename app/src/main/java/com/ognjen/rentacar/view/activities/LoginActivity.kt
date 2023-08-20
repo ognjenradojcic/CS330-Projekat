@@ -51,13 +51,13 @@ fun LoginActivity(viewModel: AppViewModel) {
                 TextField(
                     value = username,
                     onValueChange = { username = it },
-                    label = { Text("Username") },
+                    label = { Text("Username", fontSize = 20.sp) },
                     modifier = Modifier.fillMaxWidth(),
                 )
                 TextField(
                     value = password,
                     onValueChange = { password = it },
-                    label = { Text("Password") },
+                    label = { Text("Password", fontSize = 20.sp) },
                     modifier = Modifier.fillMaxWidth(),
                 )
                 Button(onClick = {
@@ -71,10 +71,10 @@ fun LoginActivity(viewModel: AppViewModel) {
                     Text(text = "Login", fontSize = 20.sp)
                 }
                 Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Text(text = "No account?", fontSize = 18.sp)
+                    Text(text = "No account?", fontSize = 20.sp)
                     Text(
                         text = "Register",
-                        fontSize = 18.sp,
+                        fontSize = 20.sp,
                         modifier = Modifier.clickable { viewModel.navigateToRegister() },
                         textDecoration = TextDecoration.Underline,
                         color = Color.Blue
