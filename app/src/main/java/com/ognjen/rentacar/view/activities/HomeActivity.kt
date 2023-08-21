@@ -29,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ognjen.rentacar.data.dto.request.InvoiceRequest
 import com.ognjen.rentacar.data.dto.response.ProductResponse
 import com.ognjen.rentacar.view.AppViewModel
 import com.ognjen.rentacar.view.layout.Footer
@@ -151,7 +152,15 @@ fun ProductCard(item: ProductResponse, viewModel: AppViewModel) {
                 onConfirm = { address, quantity ->
                     selectedQuantity = quantity
                     inputAddress = address
-                    //todo implement ordering
+
+                    viewModel.createInvoice(
+                        InvoiceRequest(
+                            inputAddress,
+                            viewModel.userResponse!!.id,
+                            listOf(InvoiceRequest.InvoiceItemRequest(item.id, quantity))
+                        )
+                    )
+
                     isDialogVisible = false
                 },
                 onDismiss = {

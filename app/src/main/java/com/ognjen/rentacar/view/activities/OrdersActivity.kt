@@ -144,7 +144,7 @@ fun OrderCard(item: InvoiceResponse, viewModel: AppViewModel) {
             if (isDialogVisible) {
                 DeleteConfirmationDialog(
                     onDeleteConfirmed = {
-                        //TODO implement delete
+                        viewModel.deleteInvoice(item.id)
 
                         isDialogVisible = false
                     },
@@ -181,7 +181,7 @@ fun OrderProductItem(item: InvoiceResponse.InvoiceItemResponse) {
         fontSize = 20.sp
     )
     Text(
-        text = "${item.product.price} €",
+        text = "${item.product.price} €  Quantity: ${item.quantity}",
 
         modifier = Modifier.padding(bottom = 4.dp),
         fontSize = 18.sp

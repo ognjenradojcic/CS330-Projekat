@@ -1,5 +1,6 @@
 package com.ognjen.rentacar.view.activities
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,6 +14,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,6 +36,8 @@ fun LoginActivity(viewModel: AppViewModel) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var showError by remember { mutableStateOf(false) }
+
+    val loginSuccessful = viewModel.loginSuccessful.collectAsState().value
 
     Scaffold(
         topBar = {
@@ -64,6 +68,10 @@ fun LoginActivity(viewModel: AppViewModel) {
                 Button(onClick = {
                     if (loginFormCheck(username, password)) {
                         viewModel.login(loginRequest = LoginRequest(username, password))
+                        if(!loginSuccessful){
+                            Log.i("Login error", "Nisu dobri podaci")
+                            showError = true
+                        }
                     } else {
                         showError = true
                     }

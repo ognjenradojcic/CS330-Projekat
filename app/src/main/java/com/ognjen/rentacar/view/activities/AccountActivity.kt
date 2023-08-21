@@ -39,23 +39,25 @@ fun AccountActivity(viewModel: AppViewModel) {
     val user = viewModel.userResponse
 
 
-    if (user != null) {
-        Scaffold(topBar = {
-            Header()
-        }, bottomBar = {
-            Footer(viewModel)
-        }) { contentPadding ->
+
+    Scaffold(topBar = {
+        Header()
+    }, bottomBar = {
+        Footer(viewModel)
+    }) { contentPadding ->
+        if (user != null) {
             Column(modifier = Modifier.padding(contentPadding)) {
                 ProfileCard(userResponse = user)
             }
-        }
-    } else {
-        Text(text = "Loading...")
-        LaunchedEffect(true) {
-            viewModel.fetchUser()
+        } else {
+            Text(text = "Loading...")
+            LaunchedEffect(true) {
+                viewModel.fetchUser()
+            }
         }
     }
 }
+
 
 @Composable
 fun ProfileCard(userResponse: UserResponse) {

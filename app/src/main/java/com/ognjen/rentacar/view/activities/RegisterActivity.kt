@@ -1,5 +1,6 @@
 package com.ognjen.rentacar.view.activities
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,6 +14,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -36,6 +38,8 @@ fun RegisterActivity(viewModel: AppViewModel) {
     var lastName by remember { mutableStateOf("") }
     var phone by remember { mutableStateOf("") }
     var showError by remember { mutableStateOf(false) }
+
+    val registerSuccessful = viewModel.registerSuccessful.collectAsState().value
 
     Scaffold(
         topBar = {
@@ -94,6 +98,10 @@ fun RegisterActivity(viewModel: AppViewModel) {
                             phone
                         )
                     )
+                    if(!registerSuccessful){
+                        Log.i("Register Error", "Username iskoriscen")
+                        showError = true
+                    }
                 } else {
                     showError = true
                 }

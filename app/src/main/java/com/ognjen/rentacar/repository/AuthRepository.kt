@@ -6,6 +6,8 @@ import com.ognjen.rentacar.data.dto.request.LoginRequest
 import com.ognjen.rentacar.data.dto.request.RegisterRequest
 import com.ognjen.rentacar.data.dto.response.LoginResponse
 import com.ognjen.rentacar.data.dto.response.RegisterResponse
+import com.ognjen.rentacar.data.exception.NotFoundException
+import com.ognjen.rentacar.data.exception.UsedAttributeException
 
 class AuthRepository {
 
@@ -15,66 +17,63 @@ class AuthRepository {
     var apiService = RetrofitHelper.getInstance().create(AuthApiService::class.java)
 
     suspend fun login(loginRequest: LoginRequest) {
-        try {
-            val response = apiService.login(loginRequest)
-            if (response.isSuccessful) {
-                loginResponse = response.body()
-                RetrofitHelper.updateToken(loginResponse?.accessToken ?: "")
+        val response = apiService.login(loginRequest)
+        if (response.isSuccessful) {
+            loginResponse = response.body()
+            RetrofitHelper.updateToken(loginResponse?.accessToken ?: "")
 
-            } else {
-                val errorBody = response.errorBody()?.string()
-                when (response.code()) {
-                    400 -> {
-                        println("Neuspesno")
-                    }
+        } else {
+            val errorBody = response.errorBody()?.string()
+            when (response.code()) {
+                400 -> {
+                    throw NotFoundException("Incorrect credentials")
+                }
 
-                    401 -> {
-                        println("Neuspesno")
-                    }
+                401 -> {
+                    println("Ne moze")
+                }
 
-                    404 -> {
-                        println("Neuspesno")
-                    }
-                    // Handle other error codes
-                    else -> {
-                        println("Neuspesno")
-                    }
+                404 -> {
+                    throw NotFoundException("Incorrect credentials")
+                }
+                // Handle other error codes
+                else -> {
+                    println("Neuspesno")
                 }
             }
-        } catch (e: Exception) {
-            println(e.message)
-        }
 
+        }
     }
 
     suspend fun register(registerRequest: RegisterRequest) {
-        try {
-            val response = apiService.register(registerRequest)
-            if (response.isSuccessful) {
-                registerResponse = response.body()
+        val response = apiService.register(registerRequest)
+        if (response.isSuccessful) {
+            registerResponse = response.body()
 
-            } else {
-                val errorBody = response.errorBody()?.string()
-                when (response.code()) {
-                    400 -> {
-                        println("Neuspesno")
-                    }
+        } else {
+            val errorBody = response.errorBody()?.string()
+            when (response.code()) {
+                400 -> {
+                    println()
+                    println("Neuspesno")
+                }
 
-                    401 -> {
-                        println("Neuspesno")
-                    }
+                401 -> {
+                    println("Neuspesno")
+                }
 
-                    404 -> {
-                        println("Neuspesno")
-                    }
-                    // Handle other error codes
-                    else -> {
-                        println("Neuspesno")
-                    }
+                404 -> {
+                    println("Neuspesno")
+                }
+
+                409 -> {
+                    throw UsedAttributeException("Username is occupied")
+                }
+                // Handle other error codes
+                else -> {
+                    println("Neuspesno")
                 }
             }
-        } catch (e: Exception) {
-            println(e.message)
         }
 
     }

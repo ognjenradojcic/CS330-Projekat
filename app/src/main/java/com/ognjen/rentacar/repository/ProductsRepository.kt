@@ -3,6 +3,7 @@ package com.ognjen.rentacar.repository
 import com.ognjen.rentacar.data.RetrofitHelper
 import com.ognjen.rentacar.data.api.ProductApiService
 import com.ognjen.rentacar.data.dto.response.ProductResponse
+import com.ognjen.rentacar.data.exception.UnauthorizedException
 
 class ProductsRepository {
     var products: List<ProductResponse>? = null
@@ -23,7 +24,7 @@ class ProductsRepository {
                     }
 
                     401 -> {
-                        println("Neuspesno")
+                        throw UnauthorizedException("Unauthorized")
                     }
 
                     404 -> {
