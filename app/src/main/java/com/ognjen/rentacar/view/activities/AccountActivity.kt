@@ -23,6 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ognjen.rentacar.data.dto.request.UserRequest
 import com.ognjen.rentacar.data.dto.response.UserResponse
 import com.ognjen.rentacar.view.AppViewModel
 import com.ognjen.rentacar.view.layout.Footer
@@ -47,7 +48,7 @@ fun AccountActivity(viewModel: AppViewModel) {
     }) { contentPadding ->
         if (user != null) {
             Column(modifier = Modifier.padding(contentPadding)) {
-                ProfileCard(userResponse = user)
+                ProfileCard(userResponse = user, viewModel)
             }
         } else {
             Text(text = "Loading...")
@@ -60,7 +61,7 @@ fun AccountActivity(viewModel: AppViewModel) {
 
 
 @Composable
-fun ProfileCard(userResponse: UserResponse) {
+fun ProfileCard(userResponse: UserResponse, viewModel: AppViewModel) {
     var isDialogVisible by remember { mutableStateOf(false) }
 
     Column(
@@ -99,6 +100,10 @@ fun ProfileCard(userResponse: UserResponse) {
             ProfileEditDialog(
                 user = userResponse,
                 onConfirm = { updatedUser ->
+                    viewModel.updateUser(
+                        updatedUser.id,
+                        UserRequest(updatedUser.firstName, updatedUser.lastName, updatedUser.phone)
+                    )
                     isDialogVisible = false
                 },
                 onDismiss = {

@@ -15,6 +15,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "RentACar"
 include(":app")
-include(":app:data")
-include(":app:repository")
-include(":app:common")

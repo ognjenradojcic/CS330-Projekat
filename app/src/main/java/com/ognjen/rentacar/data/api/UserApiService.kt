@@ -6,7 +6,7 @@ import com.ognjen.rentacar.data.dto.response.UserResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface UserApiService {
@@ -17,6 +17,6 @@ interface UserApiService {
     @GET(Constants.USERS_URL + "/profile")
     suspend fun getProfile(): Response<UserResponse>
 
-    @POST(Constants.USERS_URL + "/{id}")
-    suspend fun update(@Path("id") id: Int, @Body user: UserRequest)
+    @PUT(Constants.USERS_URL + "/{id}")
+    suspend fun update(@Path("id") id: Int, @Body user: UserRequest): Response<Unit>
 }

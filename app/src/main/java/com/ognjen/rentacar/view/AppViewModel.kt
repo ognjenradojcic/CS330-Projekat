@@ -7,6 +7,7 @@ import androidx.navigation.NavHostController
 import com.ognjen.rentacar.data.dto.request.InvoiceRequest
 import com.ognjen.rentacar.data.dto.request.LoginRequest
 import com.ognjen.rentacar.data.dto.request.RegisterRequest
+import com.ognjen.rentacar.data.dto.request.UserRequest
 import com.ognjen.rentacar.data.dto.response.InvoiceResponse
 import com.ognjen.rentacar.data.dto.response.ProductResponse
 import com.ognjen.rentacar.data.dto.response.UserResponse
@@ -48,7 +49,7 @@ class AppViewModel : ViewModel() {
 
     fun fetchUser() {
         viewModelScope.launch {
-            userRepository.getStudentById()
+            userRepository.getById()
             MainScope().launch {
                 userResponse = userRepository.userResponse
             }
@@ -124,6 +125,14 @@ class AppViewModel : ViewModel() {
             invoiceRepository.delete(id)
             fetchInvoices()
             navController.navigate(NavigationRoutes.Orders.route)
+        }
+    }
+
+    fun updateUser(id: Int, userRequest: UserRequest){
+        viewModelScope.launch {
+            userRepository.updateUser(id, userRequest)
+            fetchUser()
+            navController.navigate(NavigationRoutes.Account.route)
         }
     }
 
